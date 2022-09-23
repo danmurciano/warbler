@@ -15,20 +15,11 @@
             <p>{{ msg.text }}</p>
           </div>
 
-          {% if g.user.has_liked(msg) %}
-            <form method="POST" action="/users/remove-like/{{ msg.id }}" id="messages-form">
-              <button class="btn btn-sm btn-primary">
-                <i class="fa fa-thumbs-up"></i>
-              </button>
-            </form>
-          {% else %}
-            <form method="POST" action="/users/add-like/{{ msg.id }}" id="messages-form">
-              <button class="btn btn-sm btn-secondary">
-                <i class="fa fa-thumbs-up"></i>
-              </button>
-            </form>
-          {% endif %}
-
+          <form method="POST" action="/messages/{{ msg.id }}/remove-like" id="messages-form">
+            <button class="btn btn-sm btn-primary">
+              <i class="fa fa-thumbs-up"></i>
+            </button>
+          </form>
         </li>
       {% endfor %}
     </ul>

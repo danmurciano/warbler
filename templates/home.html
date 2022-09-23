@@ -54,13 +54,13 @@
 
             {% if msg.user_id != g.user.id %}
               {% if g.user.has_liked(msg) %}
-                <form method="POST" action="/users/remove-like/{{ msg.id }}" id="messages-form">
+                <form method="POST" action="/messages/{{ msg.id }}/remove-like" id="messages-form">
                   <button class="btn btn-sm btn-primary">
                     <i class="fa fa-thumbs-up"></i>
                   </button>
                 </form>
               {% else %}
-                <form method="POST" action="/users/add-like/{{ msg.id }}" id="messages-form">
+                <form method="POST" action="/messages/{{ msg.id }}/add-like" id="messages-form">
                   <button class="btn btn-sm btn-secondary">
                     <i class="fa fa-thumbs-up"></i>
                   </button>

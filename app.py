@@ -221,7 +221,7 @@ def show_likes(user_id):
     return render_template('users/likes.html', user=user)
 
 
-@app.route('/users/add-like/<int:message_id>', methods=['POST'])
+@app.route('/messages/<int:message_id>/add-like', methods=['POST'])
 def add_like(message_id):
     """Add a like to a warble for the currently-logged-in user."""
 
@@ -230,13 +230,15 @@ def add_like(message_id):
         return redirect("/")
 
     liked_message = Message.query.get_or_404(message_id)
-    g.user.likes.append(liked_message)
-    db.session.commit()
 
-    return redirect(f"/users/{g.user.id}/likes")
+    if liked_message.user_id != g.user.id:
+        g.user.likes.append(liked_message)
+        db.session.commit()
+
+        return redirect(f"/users/{g.user.id}/likes")
 
 
-@app.route('/users/remove-like/<int:message_id>', methods=['POST'])
+@app.route('/messages/<int:message_id>/remove-like', methods=['POST'])
 def remove_like(message_id):
     """Remove a like from a warble for the currently-logged-in user."""
 
@@ -349,7 +351,6 @@ def messages_destroy(message_id):
 
 ##############################################################################
 # Homepage and error pages
-
 
 @app.route('/')
 def homepage():
